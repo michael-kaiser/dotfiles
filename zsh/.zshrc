@@ -96,3 +96,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+PATH=$PATH:/opt/node-v8.0.0-linux-x64/bin
+PATH=$PATH:~/Android/Sdk/tools
+PATH=$PATH:~/Android/Sdk/tools/bin
+PATH=$PATH:~/Android/Sdk/build-tools
+PATH=$PATH:~/Android/Sdk
