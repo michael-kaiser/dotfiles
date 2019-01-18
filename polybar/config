@@ -17,17 +17,17 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
-background = #222
-pink = #ff115e
-turkis = #1cffcd
+background = ${xrdb:color0:#222}
+;background = #222
+pink = ${xrdb:color1:#ff115e}
+turkis = ${xrdb:color3:#1cffcd}
 lila = #353f77
 grey = #adadad
 lightlila = #bc89b0
 
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+foreground = ${xrdb:color7:#222}
+;foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
@@ -71,7 +71,7 @@ height = 27
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -88,20 +88,22 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
-font-3 = "fontawesome-webfont:pixelsize=8;1"
-font-4 = "Ronde-B-Square:pixelsize=12;1"
+;font-0 = fixed:pixelsize=10;1
+;font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-0 = "White Rabbit:pixelsize=10;1"
+font-1 = "fontawesome-webfont:pixelsize=8;1"
+font-2 = "siji:pixelsize=10;1"
+font-3 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-4 = fixed:pixelsize=10;1
 
 modules-left = powermenu bspwm i3
 modules-center = cpu
-modules-right = battery date 
+modules-right = battery pulseaudio-tail wlan filesystem date 
 
-tray-position = right
-tray-padding = 2
+;tray-position = right
+;tray-padding = 2
 ;tray-background = #0063ff
-
+tray-detached=false
 ;wm-restack = bspwm
 ;wm-restack = i3
 
@@ -317,7 +319,7 @@ card = intel_backlight
 type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
-label = 万歳 
+label = 
 label-padding-left = 4
 label-foreground = ${colors.grey}
 
@@ -412,9 +414,8 @@ type = internal/network
 interface = wlp7s0
 interval = 1.0
 ping-interval = 10
-
-format-connected = <ramp-signal> <label-connected>
-label-connected =  %local_ip%    %downspeed%    %upspeed%
+format-connected = <label-connected>
+label-connected =  %local_ip% 
 label-disconnected =    not connected
 label-disconnected-foreground = #66
 label-connected-foreground = ${colors.grey}
@@ -471,7 +472,7 @@ type = internal/volume
 ;headphone-mixer = Headphone
 :headphone-id = 9
 
-format-volume = <ramp-volume> <label-volume>
+format-volume = <ramp-volume>  <label-volume>
 label-muted = 
 label-muted-foreground = #66
 format-volume-foreground = ${colors.grey}
@@ -611,3 +612,15 @@ margin-top = 5
 margin-bottom = 5
 
 ; vim:ft=dosini
+
+[module/pulseaudio-tail]
+type = custom/script
+exec = ~/scripts/polybarscripts/pulse.sh
+tail = true
+click-right = exec pavucontrol &
+click-left = ~/scripts/polybarscripts/pulse.sh --mute
+scroll-up = ~/scripts/polybarscripts/pulse.sh --up
+scroll-down = ~/scripts/polybarscripts/pulse.sh --down
+format = <label>
+format-foreground = ${colors.grey}
+

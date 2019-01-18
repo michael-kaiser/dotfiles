@@ -1,10 +1,8 @@
 syntax on
-colorscheme delek
 set number
-
+set encoding=utf-8
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -13,7 +11,19 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+Plugin 'dylanaraps/wal.vim'
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+Plugin 'ervandew/supertab'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -34,6 +44,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'powerline/powerline'
+Plugin 'powerline/powerline-fonts'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -49,9 +60,15 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "
-"set laststatus=2
+set laststatus=2
+set t_Co=256
+let g:airline_theme='minimalist'
+set encoding=utf-8
+nnoremap <leader>q :bp<cr>:bd #<cr>
+filetype plugin indent on
 
-let g:airline_theme='murmur'
-
-
+" Enable powerline fonts
+let g:airline_powerline_fonts = 1
+let g:powerline_pycmd="py3"
 map <C-n> :NERDTreeToggle<CR>
+colorscheme wal

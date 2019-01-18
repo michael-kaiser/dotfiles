@@ -1,8 +1,9 @@
 #!/bin/bash
  
 scrot /tmp/screen.png
-convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
- 
+#convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+/home/michael/scripts/image/videoglitch -n 20 -j 10 -c green-magenta /tmp/screen.png /tmp/screen.png
+echo "done1"
 if [[ -f $HOME/.config/lock.png ]]
 then
     # placement x/y

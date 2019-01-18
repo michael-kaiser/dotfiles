@@ -46,10 +46,10 @@ bindsym $mod+d exec ~/.dotfiles/i3/start_rofi.sh
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+odiaeresis focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -58,10 +58,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -70,7 +70,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -124,8 +124,6 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-assign [class="Firefox"] $workspace2
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -141,10 +139,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym odiaeresis resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -165,45 +163,60 @@ bindsym $mod+r mode "resize"
 #        status_command i3status
 #        tray_output primary
 #}
-set $terminal gnome-terminal
+set $terminal urxvt
 
-for_window [window_role="dropdown"] floating enable
-for_window [window_role="dropdown"] resize set 625 400
-for_window [window_role="dropdown"] move scratchpad
-for_window [window_role="dropdown"] border pixel 5
-exec --no-startup-id $terminal --role "dropdown" -e tmux
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+exec --no-startup-id $terminal -name "dropdown" -e tmux
 
-for_window [window_role="math"] floating enable
-for_window [window_role="math"] resize set 625 400
-for_window [window_role="math"] move scratchpad
-for_window [window_role="math"] border pixel 5
-exec --no-startup-id $terminal --role "math" -e 'R -q'
+for_window [instance="math"] floating enable
+for_window [instance="math"] resize set 625 400
+for_window [instance="math"] move scratchpad
+for_window [instance="math"] border pixel 5
+exec --no-startup-id $terminal -name "math" -e R -q
 
-bindsym $mod+shift+x exec i3lock
+bindsym $mod+shift+x exec ~/.dotfiles/i3/lockscreen.sh
 bindsym $mod+F1 exec i3-sensible-terminal -e "ranger"
 bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec i3-sensible-terminal -e "htop"
 bindsym $mod+F4 exec i3-sensible-terminal -e "python3"
+bindsym --release Print exec maim -s | xclip -selection clipboard -t image/png && notify-send "Screenshot taken"
+bindsym --release $mod+Print exec maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%s).png && notify-send "Screenshot taken"
+ 
+bindsym $mod+u		[instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 
-bindsym $mod+u		[window_role="dropdown"] scratchpad show; [window_role="dropdown"] move position center
-
-bindsym $mod+m		[window_role="math"] scratchpad show; [window_role="math"] move position center
+bindsym $mod+m		[instance="math"] scratchpad show; [instance="math"] move position center
 
 
-exec_always feh --bg-scale /home/michael/Downloads/synth2.png
+#exec_always feh --bg-scale /home/michael/Pictures/Wallpapers/city.png
 exec compton -f
-exec --no-startup-id ~/.dotfiles/polybar/launch.sh
+exec_always --no-startup-id ~/.dotfiles/polybar/launch.sh
+exec wicd-gtk --tray
+exec autocutsel
+exec_always feh --bg-scale "$(< "${HOME}/.cache/wal/wal")"  
+
+set_from_resource $color1 i3wm.color3 #1cffcd
+set_from_resource $color2 i3wm.color2 #ffffff
+set_from_resource $color3 i3wm.color0 #5f676a
+set_from_resource $color4 i3wm.color4 #2f343a
+set $color5  #333333
+set_from_resource $color6 i3wm.color1 #900000
+set_from_resource $color7 i3wm.color6 #0c0c0c
+set_from_resource $color8 i3wm.color7 #000000
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #1cffcd #1cffcd #ffffff #1cffcd   #1cffcd
-client.focused_inactive #333333 #5f676a #ffffff #333333   #333333
-client.unfocused        #333333 #5f676a #ffffff #333333   #333333
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.focused          $color1 $color1 $color2 $color1   $color1
+client.focused_inactive $color5 $color3 $color2 $color5   $color5
+client.unfocused        $color5 $color4 $color2 $color5   $color5
+client.urgent           $color4 $color6 $color2 $color6   $color6
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
 for_window [class="^.*"] border pixel 3
+for_window [class="Wine"] floating enable
 
-gaps inner 10
+gaps inner 30
 gaps outer 10
