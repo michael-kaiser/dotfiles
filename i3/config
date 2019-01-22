@@ -192,7 +192,7 @@ bindsym $mod+m		[instance="math"] scratchpad show; [instance="math"] move positi
 
 #exec_always feh --bg-scale /home/michael/Pictures/Wallpapers/city.png
 exec compton -f
-exec_always --no-startup-id ~/.dotfiles/polybar/launch.sh
+exec --no-startup-id ~/.dotfiles/polybar/launch.sh
 exec wicd-gtk --tray
 exec autocutsel
 exec_always feh --bg-scale "$(< "${HOME}/.cache/wal/wal")"  
