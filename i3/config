@@ -218,5 +218,5 @@ client.background       #ffffff
 for_window [class="^.*"] border pixel 3
 for_window [class="Wine"] floating enable
 
-gaps inner 30
-gaps outer 10
+#gaps inner 30
+#gaps outer 10

@@ -13,6 +13,7 @@ Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'moll/vim-bbye'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -29,6 +30,8 @@ let g:airline_theme='minimalist'
 set encoding=utf-8
 nnoremap <leader>q :bp<cr>:bd #<cr>
 filetype plugin indent on
+
+:nnoremap <Leader>q :Bdelete<CR>
 
 let g:airline_powerline_fonts = 1
 let g:powerline_pycmd="py3"

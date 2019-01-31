@@ -98,7 +98,7 @@ font-4 = fixed:pixelsize=10;1
 
 modules-left = powermenu bspwm i3
 modules-center = cpu
-modules-right = battery pulseaudio-tail wlan filesystem date 
+modules-right = updates-arch-combined dropbox-isrunning battery pulseaudio-tail wlan filesystem date
 
 ;tray-position = right
 ;tray-padding = 2
@@ -204,13 +204,13 @@ enable-scroll = false
 ; Default: true
 wrapping-scroll = false
 
-; Set the scroll cycle direction 
+; Set the scroll cycle direction
 ; Default: true
 reverse-scroll = false
 
-; Use fuzzy (partial) matching on labels when assigning 
+; Use fuzzy (partial) matching on labels when assigning
 ; icons to workspaces
-; Example: code;♚ will apply the icon to all workspaces 
+; Example: code;♚ will apply the icon to all workspaces
 ; containing 'code' in the label
 ; Default: false
 fuzzy-match = true
@@ -276,7 +276,7 @@ label-urgent-background = ${colors.pink}
 label-urgent-padding = 4
 
 ; Separator in between workspaces
-label-separator = 
+label-separator =
 label-separator-padding = 2
 label-separator-foreground = #ffb52a
 
@@ -319,7 +319,7 @@ card = intel_backlight
 type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
-label = 
+label =
 label-padding-left = 4
 label-foreground = ${colors.grey}
 
@@ -369,7 +369,7 @@ expand-right = false
 ;   menu-close
 ; Other commands will be executed using "/usr/bin/env sh -c $COMMAND"
 
-label-open = 
+label-open =
 label-close = 
 label-separator = "   "
 
@@ -400,7 +400,7 @@ bar-used-foreground-0 = ${colors.turkis}
 bar-used-foreground-1 = ${colors.turkis}
 bar-used-foreground-2 = ${colors.turkis}
 bar-used-foreground-3 = ${colors.turkis}
-bar-used-indicator = 
+bar-used-indicator =
 bar-used-indicator-font = 6
 bar-used-indicator-foreground = #aaff77
 bar-used-fill = ─
@@ -415,16 +415,16 @@ interface = wlp7s0
 interval = 1.0
 ping-interval = 10
 format-connected = <label-connected>
-label-connected =  %local_ip% 
+label-connected =  %local_ip%
 label-disconnected =    not connected
 label-disconnected-foreground = #66
 label-connected-foreground = ${colors.grey}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 =
+ramp-signal-1 =
+ramp-signal-2 =
+ramp-signal-3 =
+ramp-signal-4 =
 
 animation-packetloss-0 = 
 animation-packetloss-0-foreground = #ffa64c
@@ -477,10 +477,10 @@ label-muted = 
 label-muted-foreground = #66
 format-volume-foreground = ${colors.grey}
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-3 = 
+ramp-volume-0 =
+ramp-volume-1 =
+ramp-volume-2 =
+ramp-volume-3 =
 
 [module/alsa]
 type = internal/alsa
@@ -524,7 +524,7 @@ format-discharging-foreground = ${colors.grey}
 format-full-foreground = ${colors.grey}
 
 label-charging = %percentage%% %time%h
-label-discharging = %percentage%% %time%h 
+label-discharging = %percentage%% %time%h
 
 ramp-capacity-0 = 
 ramp-capacity-0-foreground = ${colors.pink}
@@ -624,3 +624,15 @@ scroll-down = ~/scripts/polybarscripts/pulse.sh --down
 format = <label>
 format-foreground = ${colors.grey}
 
+[module/dropbox-isrunning]
+type = custom/script
+exec = ~/.dotfiles/polybar/dropbox-isrunning.sh
+interval = 5
+click-left = ~/.dotfiles/polybar/dropbox-isrunning.sh --toggle &> /dev/null
+format-foreground = ${colors.grey}
+
+[module/updates-arch-combined]
+type = custom/script
+exec = ~/.dotfiles/polybar/updates-arch-combined.sh
+interval = 600
+format-foreground = ${colors.grey}
